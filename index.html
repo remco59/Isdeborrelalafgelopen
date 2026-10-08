@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#f7f4f1" />
+  <title>Is de borrel al afgelopen?</title>
+  <meta name="description" content="Het antwoord is verrassend consequent." />
+  <style>
+    :root {
+      /* Tjas-inspired: rood, wit en een warme neutrale basis */
+      --bg: #f7f4f1;
+      --panel: rgba(255,255,255,.82);
+      --panel-border: rgba(154, 20, 39, .14);
+      --text: #241f20;
+      --muted: #746b6d;
+      --accent: #ed1b2f;
+      --accent-2: #94172b;
+      --accent-soft: #ffe5e8;
+      --shadow: 0 28px 70px rgba(83, 20, 30, .10);
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body { min-height: 100%; }
+
+    body {
+      margin: 0;
+      min-height: 100svh;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 15%, rgba(237,27,47,.11), transparent 30%),
+        radial-gradient(circle at 88% 82%, rgba(148,23,43,.08), transparent 30%),
+        linear-gradient(150deg, #fffdfb 0%, #f7f4f1 48%, #f2eceb 100%);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .noise {
+      position: fixed;
+      inset: 0;
+      opacity: .10;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.13'/%3E%3C/svg%3E");
+      mix-blend-mode: soft-light;
+    }
+
+    .orb {
+      position: fixed;
+      width: 38vw;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: .075;
+      pointer-events: none;
+      animation: float 12s ease-in-out infinite alternate;
+    }
+    .orb.one { background: var(--accent); top: -14vw; left: -10vw; }
+    .orb.two { background: var(--accent-2); right: -14vw; bottom: -18vw; animation-delay: -5s; }
+
+    @keyframes float {
+      to { transform: translate3d(4vw, 3vw, 0) scale(1.12); }
+    }
+
+    main {
+      width: min(920px, calc(100% - 32px));
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      padding: 8px 12px;
+      margin-bottom: 34px;
+      border: 1px solid var(--panel-border);
+      border-radius: 999px;
+      background: rgba(255,255,255,.66);
+      color: var(--accent-2);
+      font-size: 13px;
+      letter-spacing: .04em;
+      backdrop-filter: blur(18px);
+    }
+
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 5px rgba(237,27,47,.10);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(1.2rem, 2.3vw, 1.65rem);
+      font-weight: 650;
+      color: #3a3032;
+      letter-spacing: -.025em;
+    }
+
+    .answer {
+      margin: 14px 0 6px;
+      font-size: clamp(5.8rem, 20vw, 13rem);
+      line-height: .88;
+      font-weight: 900;
+      letter-spacing: -.085em;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-shadow: 0 16px 60px rgba(237,27,47,.14);
+      transform-origin: center;
+    }
+
+    .answer.morning {
+      font-size: clamp(3rem, 9vw, 6.5rem);
+      line-height: .93;
+      max-width: 900px;
+      margin-inline: auto;
+      letter-spacing: -.06em;
+      color: var(--accent-2);
+    }
+
+    .card {
+      margin: 34px auto 0;
+      width: min(620px, 100%);
+      padding: 22px 22px 18px;
+      border: 1px solid var(--panel-border);
+      border-radius: 24px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+    }
+
+    .quip {
+      min-height: 2.2em;
+      display: grid;
+      place-items: center;
+      margin: 0;
+      font-size: clamp(1rem, 2.3vw, 1.28rem);
+      line-height: 1.45;
+      font-weight: 560;
+      letter-spacing: -.015em;
+    }
+
+    .meta {
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    button {
+      margin-top: 24px;
+      appearance: none;
+      border: 1px solid rgba(148,23,43,.14);
+      border-radius: 999px;
+      padding: 12px 17px;
+      background: var(--accent-soft);
+      color: var(--accent-2);
+      font: inherit;
+      font-size: 14px;
+      font-weight: 650;
+      cursor: pointer;
+      transition: .18s ease;
+    }
+
+    button:hover { transform: translateY(-2px); background: #ffd9de; border-color: rgba(148,23,43,.22); }
+    button:active { transform: translateY(0) scale(.98); }
+
+    footer {
+      margin-top: 32px;
+      color: #9a898c;
+      font-size: 12px;
+    }
+
+    .pop { animation: pop .32s ease both; }
+    @keyframes pop {
+      0% { transform: scale(.94); opacity: .45; }
+      70% { transform: scale(1.035); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    @media (max-width: 560px) {
+      .eyebrow { margin-bottom: 28px; }
+      .card { margin-top: 28px; border-radius: 20px; padding: 20px 18px 17px; }
+      footer { margin-top: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <div class="orb one" aria-hidden="true"></div>
+  <div class="orb two" aria-hidden="true"></div>
+
+  <main>
+    <div class="eyebrow"><span class="dot"></span> live borrelstatus</div>
+    <h1>Is de borrel al afgelopen?</h1>
+    <div id="answer" class="answer">NEE.</div>
+
+    <section class="card" aria-live="polite">
+      <p id="quip" class="quip">Drink nog maar een biertje.</p>
+      <div id="meta" class="meta"></div>
+      <button id="again" type="button">Nog een keer vragen</button>
+    </section>
+
+    <footer>isdeborrelalafgelopen.nl · een dienst van twijfelachtige noodzaak</footer>
+  </main>
+
+  <script>
+    const quips = [
+      "Drink nog maar een biertje.",
+      "Je glas is nog niet leeg. Zaak gesloten.",
+      "Nog eentje kan statistisch gezien prima.",
+      "De tap is nog warm. Dat zegt genoeg.",
+      "Vraag het over één drankje nog eens.",
+      "Afgelopen? We zijn net lekker bezig.",
+      "Het laatste rondje bestaat vooral in theorie.",
+      "Nee. En nu niet zo moeilijk doen.",
+      "Er is nog muziek. Dus nee.",
+      "Eerst nog eentje voor de sfeer.",
+      "Technisch gezien is naar huis gaan optioneel.",
+      "Je hebt deze website geopend. Dat is al bewijs genoeg.",
+      "De borrel stopt pas als niemand meer weet wie 'm begon.",
+      "Nee. Water mag trouwens ook. Hoeft niet, maar mag.",
+      "Blijf nog even. Je jas hangt toch al ergens kwijt.",
+      "Dit voelt niet als het einde. Hooguit als een tussenstand.",
+      "Nog vijf minuten. En daarna nog vijf minuten.",
+      "De avond heeft nog minstens één slecht idee over.",
+      "Nee. Morgen ben je jezelf dankbaar. Waarschijnlijk niet, maar toch.",
+      "Als je het moet vragen, is het antwoord sowieso nee."
+    ];
+
+    let previous = -1;
+
+    function amsterdamParts() {
+      const parts = new Intl.DateTimeFormat('nl-NL', {
+        timeZone: 'Europe/Amsterdam',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false
+      }).formatToParts(new Date());
+
+      const hour = Number(parts.find(p => p.type === 'hour')?.value || 0);
+      const minute = parts.find(p => p.type === 'minute')?.value || '00';
+      return { hour, minute };
+    }
+
+    function randomQuip() {
+      if (quips.length === 1) return quips[0];
+      let i;
+      do i = Math.floor(Math.random() * quips.length); while (i === previous);
+      previous = i;
+      return quips[i];
+    }
+
+    function render(newQuip = false) {
+      const answer = document.getElementById('answer');
+      const quip = document.getElementById('quip');
+      const meta = document.getElementById('meta');
+      const btn = document.getElementById('again');
+      const { hour, minute } = amsterdamParts();
+      const sleepyHours = hour >= 8 && hour < 11;
+
+      answer.classList.remove('pop');
+      quip.classList.remove('pop');
+      void answer.offsetWidth;
+
+      if (sleepyHours) {
+        answer.textContent = 'DOE NORMAAL JOH, GA SLAPEN.';
+        answer.classList.add('morning', 'pop');
+        quip.textContent = 'Het is ochtend. De borrel heeft nu administratief verlof.';
+        btn.textContent = 'Maar echt dan?';
+      } else {
+        answer.textContent = 'NEE.';
+        answer.classList.remove('morning');
+        answer.classList.add('pop');
+        if (newQuip || !quip.dataset.set) {
+          quip.textContent = randomQuip();
+          quip.dataset.set = '1';
+        }
+        quip.classList.add('pop');
+        btn.textContent = 'Nog een keer vragen';
+      }
+
+      meta.textContent = `Gecontroleerd om ${String(hour).padStart(2,'0')}:${minute} · Nederlandse tijd`;
+    }
+
+    document.getElementById('again').addEventListener('click', () => render(true));
+    render(true);
+    setInterval(() => render(false), 30_000);
+  </script>
+</body>
+</html>
