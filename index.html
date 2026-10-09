@@ -123,6 +123,10 @@
       color: var(--accent-2);
     }
 
+    .answer.closed {
+      color: var(--accent-2);
+    }
+
     .card {
       margin: 34px auto 0;
       width: min(620px, 100%);
@@ -261,20 +265,28 @@
       const meta = document.getElementById('meta');
       const btn = document.getElementById('again');
       const { hour, minute } = amsterdamParts();
-      const sleepyHours = hour >= 8 && hour < 11;
+      const totalMinutes = hour * 60 + Number(minute);
+      const borrelIsOver = totalMinutes >= 6 * 60 && totalMinutes < 7 * 60 + 30;
+      const areYouCrazyHours = totalMinutes >= 7 * 60 + 30 && totalMinutes < 11 * 60;
 
-      answer.classList.remove('pop');
+      answer.classList.remove('pop', 'morning', 'closed');
       quip.classList.remove('pop');
       void answer.offsetWidth;
 
-      if (sleepyHours) {
-        answer.textContent = 'DOE NORMAAL JOH, GA SLAPEN.';
+      if (areYouCrazyHours) {
+        answer.textContent = 'BEN JE GEK?';
         answer.classList.add('morning', 'pop');
-        quip.textContent = 'Het is ochtend. De borrel heeft nu administratief verlof.';
-        btn.textContent = 'Maar echt dan?';
+        quip.textContent = 'Het is ochtend. Ga naar bed, mafkees.';
+        quip.dataset.set = '1';
+        btn.textContent = 'Toch nog eentje?';
+      } else if (borrelIsOver) {
+        answer.textContent = 'JA.';
+        answer.classList.add('closed', 'pop');
+        quip.textContent = 'Na zessen is de borrel echt wel klaar.';
+        quip.dataset.set = '1';
+        btn.textContent = 'Accepteer het maar';
       } else {
         answer.textContent = 'NEE.';
-        answer.classList.remove('morning');
         answer.classList.add('pop');
         if (newQuip || !quip.dataset.set) {
           quip.textContent = randomQuip();
