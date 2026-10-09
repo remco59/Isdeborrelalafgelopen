@@ -6,71 +6,130 @@
   <meta name="theme-color" content="#f7f4f1" />
   <title>Is de borrel al afgelopen?</title>
   <meta name="description" content="Het antwoord is verrassend consequent." />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="nl_NL" />
+  <meta property="og:title" content="Is de borrel al afgelopen?" />
+  <meta property="og:description" content="Het antwoord is verrassend consequent." />
+  <meta name="twitter:card" content="summary" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23e11d2e'/%3E%3Crect x='8' y='10' width='12' height='15' rx='2' fill='%23fff'/%3E%3Cpath d='M20 13h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-3' fill='none' stroke='%23fff' stroke-width='2'/%3E%3Ccircle cx='11' cy='9' r='3' fill='%23fff'/%3E%3Ccircle cx='16' cy='8.5' r='3' fill='%23fff'/%3E%3C/svg%3E" />
   <style>
     :root {
-      --bg:#f7f4f1; --panel:rgba(255,255,255,.82); --panel-border:rgba(154,20,39,.14);
-      --text:#241f20; --muted:#746b6d; --accent:#ed1b2f; --accent-2:#94172b;
-      --accent-soft:#ffe5e8; --shadow:0 28px 70px rgba(83,20,30,.10);
+      --bg:#f7f4f1; --glow:rgba(225,29,46,.10); --text:#241f20; --muted:#6a6163;
+      --accent:#e11d2e; --soft:#ffe5e8; --soft-hover:#ffd6dc; --line:rgba(148,23,43,.22);
     }
-    *{box-sizing:border-box} html,body{min-height:100%}
-    body{margin:0;min-height:100svh;display:grid;place-items:center;overflow:hidden;color:var(--text);
-      background:radial-gradient(circle at 12% 15%,rgba(237,27,47,.11),transparent 30%),radial-gradient(circle at 88% 82%,rgba(148,23,43,.08),transparent 30%),linear-gradient(150deg,#fffdfb 0%,#f7f4f1 48%,#f2eceb 100%);
-      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-    .noise{position:fixed;inset:0;opacity:.10;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.13'/%3E%3C/svg%3E");mix-blend-mode:soft-light}
-    .orb{position:fixed;width:38vw;aspect-ratio:1;border-radius:50%;filter:blur(80px);opacity:.075;pointer-events:none;animation:float 12s ease-in-out infinite alternate}
-    .orb.one{background:var(--accent);top:-14vw;left:-10vw}.orb.two{background:var(--accent-2);right:-14vw;bottom:-18vw;animation-delay:-5s}
-    @keyframes float{to{transform:translate3d(4vw,3vw,0) scale(1.12)}}
-    main{width:min(920px,calc(100% - 32px));text-align:center;position:relative;z-index:1}
-    .eyebrow{display:inline-flex;gap:8px;align-items:center;padding:8px 12px;margin-bottom:34px;border:1px solid var(--panel-border);border-radius:999px;background:rgba(255,255,255,.66);color:var(--accent-2);font-size:13px;letter-spacing:.04em;backdrop-filter:blur(18px)}
-    .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 5px rgba(237,27,47,.10)}
-    h1{margin:0;font-size:clamp(1.2rem,2.3vw,1.65rem);font-weight:650;color:#3a3032;letter-spacing:-.025em}
-    .answer{margin:14px 0 6px;font-size:clamp(5.8rem,20vw,13rem);line-height:.88;font-weight:900;letter-spacing:-.085em;text-transform:uppercase;color:var(--accent);text-shadow:0 16px 60px rgba(237,27,47,.14);transform-origin:center}
-    .answer.morning{font-size:clamp(3rem,9vw,6.5rem);line-height:.93;max-width:900px;margin-inline:auto;letter-spacing:-.06em;color:var(--accent-2)}
-    .answer.closed{color:var(--accent-2)}
-    .card{margin:34px auto 0;width:min(620px,100%);padding:22px 22px 18px;border:1px solid var(--panel-border);border-radius:24px;background:var(--panel);box-shadow:var(--shadow);backdrop-filter:blur(18px)}
-    .quip{min-height:2.2em;display:grid;place-items:center;margin:0;font-size:clamp(1rem,2.3vw,1.28rem);line-height:1.45;font-weight:560;letter-spacing:-.015em}
-    .meta{margin-top:14px;color:var(--muted);font-size:12px}
-    #again{margin-top:24px;appearance:none;border:1px solid rgba(148,23,43,.14);border-radius:999px;padding:12px 17px;background:var(--accent-soft);color:var(--accent-2);font:inherit;font-size:14px;font-weight:650;cursor:pointer;transition:.18s ease}
-    #again:hover{transform:translateY(-2px);background:#ffd9de;border-color:rgba(148,23,43,.22)} #again:active{transform:translateY(0) scale(.98)}
-    footer{margin-top:32px;color:#9a898c;font-size:12px}
-    #egg{appearance:none;border:0;background:transparent;color:inherit;font:inherit;padding:2px 4px;cursor:pointer;border-bottom:1px dotted rgba(148,23,43,.28);border-radius:4px;transition:.18s ease;position:relative}
-    #egg:hover,#egg:focus-visible{color:var(--accent-2);background:rgba(237,27,47,.05);outline:none}
-    #egg::after{content:"psst…";position:absolute;left:50%;bottom:calc(100% + 8px);transform:translateX(-50%) translateY(3px);padding:5px 8px;border-radius:8px;background:#fff;color:var(--accent-2);box-shadow:0 8px 24px rgba(83,20,30,.12);opacity:0;pointer-events:none;white-space:nowrap;transition:.18s ease}
-    #egg:hover::after,#egg:focus-visible::after{opacity:1;transform:translateX(-50%) translateY(0)}
-    #egg.found{color:var(--accent-2);font-weight:700;border-bottom-color:transparent}
-    .pop{animation:pop .32s ease both}@keyframes pop{0%{transform:scale(.94);opacity:.45}70%{transform:scale(1.035)}100%{transform:scale(1);opacity:1}}
-    @media(max-width:560px){.eyebrow{margin-bottom:28px}.card{margin-top:28px;border-radius:20px;padding:20px 18px 17px}footer{margin-top:24px}#egg::after{display:none}}
+    body[data-state="closed"] {
+      --bg:#1d1416; --glow:rgba(255,107,122,.10); --text:#f4e9ea; --muted:#bfaeb1;
+      --accent:#ff7482; --soft:#33242a; --soft-hover:#412d34; --line:rgba(255,200,206,.28);
+    }
+    body[data-state="crazy"] {
+      --bg:#fff0c4; --glow:rgba(255,170,0,.20); --text:#2b2012; --muted:#6b5a3c;
+      --accent:#b3260e; --soft:#ffe19a; --soft-hover:#ffd678; --line:rgba(120,70,0,.32);
+    }
+    *{box-sizing:border-box}
+    html{background:var(--bg)}
+    body{margin:0;min-height:100svh;display:grid;place-items:center;padding:40px 0;color:var(--text);
+      background:radial-gradient(circle at 50% 38%,var(--glow),transparent 62%),var(--bg);
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      transition:background-color .6s ease,color .6s ease}
+    ::selection{background:var(--accent);color:var(--bg)}
+    main{width:min(920px,calc(100% - 32px));text-align:center}
+    h1{margin:0;font-size:clamp(1.15rem,2.3vw,1.5rem);font-weight:650;letter-spacing:-.02em;color:var(--muted);text-wrap:balance}
+    .answer{margin:20px 0 10px;font-size:clamp(5.4rem,19vw,11.5rem);line-height:.9;font-weight:900;letter-spacing:-.04em;text-transform:uppercase;color:var(--accent);transition:color .6s ease}
+    .answer.long{font-size:clamp(2.8rem,9vw,6rem);line-height:.98;max-width:900px;margin-inline:auto;text-wrap:balance}
+    .quip{min-height:2.9em;display:grid;place-items:center;margin:20px auto 0;max-width:34ch;font-size:clamp(1.1rem,2.6vw,1.4rem);line-height:1.4;font-weight:560;letter-spacing:-.01em;text-wrap:balance}
+    .meta{margin-top:18px;color:var(--muted);font-size:14px}
+    .actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:28px}
+    button{font:inherit;cursor:pointer;color:inherit}
+    button:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+    .btn{appearance:none;border:1px solid var(--line);border-radius:999px;padding:13px 20px;min-height:44px;background:var(--soft);color:var(--text);font-size:15px;font-weight:650;transition:background-color .18s ease,transform .18s ease}
+    .btn:hover{background:var(--soft-hover);transform:translateY(-2px)}
+    .btn:active{transform:translateY(0) scale(.98)}
+    .btn.ghost{background:transparent}
+    .btn.ghost:hover{background:var(--soft)}
+    footer{margin-top:44px;color:var(--muted);font-size:14px}
+    #egg{appearance:none;border:0;background:transparent;font:inherit;padding:10px 6px;border-bottom:1px dotted var(--line);border-radius:4px;position:relative;transition:color .18s ease,background-color .18s ease}
+    #egg:hover{color:var(--accent);background:var(--soft)}
+    #egg.found{color:var(--accent);font-weight:700;border-bottom-color:transparent}
+    #egg::after{content:"psst…";position:absolute;left:50%;bottom:calc(100% + 4px);transform:translateX(-50%) translateY(3px);padding:5px 8px;border-radius:8px;background:var(--text);color:var(--bg);font-size:13px;opacity:0;pointer-events:none;white-space:nowrap;transition:opacity .18s ease,transform .18s ease}
+    @media (hover:hover){#egg:hover::after,#egg:focus-visible::after{opacity:1;transform:translateX(-50%) translateY(0)}}
+    .pop{animation:pop .4s cubic-bezier(.16,1,.3,1) both}
+    @keyframes pop{from{transform:scale(.94);opacity:.4}to{transform:scale(1);opacity:1}}
+    .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+    @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
   </style>
 </head>
-<body>
-  <div class="noise" aria-hidden="true"></div><div class="orb one" aria-hidden="true"></div><div class="orb two" aria-hidden="true"></div>
+<body data-state="open">
   <main>
-    <div class="eyebrow"><span class="dot"></span> live borrelstatus</div>
     <h1>Is de borrel al afgelopen?</h1>
-    <div id="answer" class="answer">NEE.</div>
-    <section class="card" aria-live="polite">
+    <div aria-live="polite" aria-atomic="false">
+      <div id="answer" class="answer">NEE.</div>
       <p id="quip" class="quip">Drink nog maar een biertje.</p>
-      <div id="meta" class="meta"></div>
-      <button id="again" type="button">Nog een keer vragen</button>
-    </section>
-    <footer>isdeborrelalafgelopen.nl · <button id="egg" type="button" aria-label="Verborgen boodschap">een dienst van twijfelachtige noodzaak</button></footer>
+    </div>
+    <div id="meta" class="meta"></div>
+    <div class="actions">
+      <button id="again" class="btn" type="button">Nog een keer vragen</button>
+      <button id="share" class="btn ghost" type="button">Deel het nieuws</button>
+    </div>
+    <span id="shareStatus" class="sr" role="status"></span>
+    <footer>isdeborrelalafgelopen.nl · <button id="egg" type="button">een dienst van twijfelachtige noodzaak</button></footer>
   </main>
   <script>
     const messages={
       normal:[
         "Drink nog maar een biertje.","Je glas is nog niet leeg. Zaak gesloten.","Nog eentje kan statistisch gezien prima.","De tap is nog warm. Dat zegt genoeg.","Vraag het over één drankje nog eens.","Afgelopen? We zijn net lekker bezig.","Het laatste rondje bestaat vooral in theorie.","Nee. En nu niet zo moeilijk doen.","Er is nog muziek. Dus nee.","Eerst nog eentje voor de sfeer.","Technisch gezien is naar huis gaan optioneel.","Je hebt deze website geopend. Dat is al bewijs genoeg.","De borrel stopt pas als niemand meer weet wie 'm begon.","Nee. Water mag trouwens ook. Hoeft niet, maar mag.","Blijf nog even. Je jas hangt toch al ergens kwijt.","Dit voelt niet als het einde. Hooguit als een tussenstand.","Nog vijf minuten. En daarna nog vijf minuten.","De avond heeft nog minstens één slecht idee over.","Als je het moet vragen, is het antwoord sowieso nee.","Je bent er nu toch. Maak het af.","Er staat nergens dat je al naar huis moet.","De stoelen staan nog niet op tafel. Dus nee.","Zolang iemand nog ‘proost’ zegt, telt het als borrel.","Ik heb het nagekeken: nog lang niet.","Je jas aandoen is op dit moment overdreven ambitieus.","Er kan nog makkelijk één ronde bij.","De avond is pas net op bedrijfstemperatuur.","Niemand heeft ‘laatste drankje’ officieel bekrachtigd.","De sfeercommissie heeft verlenging aangevraagd.","Nee. Dit is hooguit de rust.","Een borrel stopt niet. Een borrel vervaagt langzaam.","Ik zie geen reden voor paniek of vertrek.","De koelkast zegt van niet.","Er ligt nog ijs. Onweerlegbaar bewijs.","Het is pas afgelopen als de playlist zichzelf opgeeft.","Nog eentje voor onderweg. Naar nergens.","Vertrekken is nu vooral een administratieve keuze.","De borrel is nog springlevend en licht aangeschoten.","Je hebt nog niet eens dramatisch naar de klok gekeken.","Nee. We hebben het hier net gezellig gekregen.","Er is nog drank en slechte besluitvorming. Perfect.","Volgens mijn berekening ontbreken er nog minstens twee rondes.","Het licht staat nog niet irritant fel. We kunnen door.","Als de muziek nog harder kan, is het niet afgelopen.","De bar heeft nog geen afscheidsbrief gestuurd.","Nog eentje. Voor de wetenschap.","De avond is nog niet klaar met jou.","Een verstandige keuze zou nu heel ongepast zijn.","Er is nog tijd voor een uitstekende slechte beslissing.","De groepsapp is nog niet stilgevallen. Borrel loopt.","Je glas kijkt alsof het nog iets van je verwacht.","Het antwoord blijft nee, hoe vaak je ook refresht.","Er is nog geen ‘was gezellig!’ in de groepsapp. Dus nee.","Iemand moet het laatste rondje bestellen. Waarom niet jij?","De klok is slechts een suggestie.","Morgen is een probleem voor toekomstige jij.","Nog één nummer dan. En daarna zien we wel weer.","De borrelstatus is officieel: zorgwekkend gezellig.","Je kunt nu weggaan, maar dan win je helemaal niks.","Nee. De avond heeft nog plotontwikkeling nodig.","Er ontbreekt nog minimaal één verhaal dat morgen vaag voelt.","Je telefoon heeft nog batterij. Geen excuus.","Er is nog iemand wakker. Daarmee is de zaak afgedaan.","De borrel heeft zichzelf zojuist met een uur verlengd.","Je bent nog niet je fiets kwijt. Veel te vroeg.","Nog eentje om zeker te weten dat het géén eentje meer wordt.","De avond zit nog midden in zijn hoofdprogramma.","Er is nog geen friet gehaald. Dan zijn we duidelijk nog niet klaar.","Het einde is momenteel niet beschikbaar. Probeer later opnieuw.","Deze website heeft nooit toestemming gegeven om te vertrekken.","Je vrienden zijn er nog. Waarschijnlijk. Kijk even om je heen.","De planning zegt niets. De sfeer zegt doorgaan.","Nog eentje voor degene die ‘ik ga zo’ zei.","Je zei een uur geleden ook al dat je bijna ging.","Nee. Dat was geen laatste ronde, dat was een tussenronde.","Er is nog genoeg tijd om een nieuwe favoriete plaat te horen.","Je hoeft niet naar huis. Je huis loopt niet weg.","De glazen zijn nog rond. Dat is een teken.","Dit is geen einde, dit is een strategische drinkpauze.","De kans op karaoke is nog niet nul. Blijven dus.","Er is nog iemand met muntjes. We kunnen door.","Je hebt nog geen sentimenteel gesprek gehad. Veel te vroeg.","Nee. Eerst nog even collectief onverstandig doen.","Het zou zonde zijn om nu ineens verantwoordelijk te worden.","De borrel heeft quorum. Besluit: doorgaan.","Niemand heeft de stekker eruit getrokken. Letterlijk noch figuurlijk.","Als je nog kunt vragen of het afgelopen is, is het niet afgelopen.","Nog een drankje en dan evalueren we de situatie volledig opnieuw.","Je hoeft alleen nog maar ‘deze is echt de laatste’ te zeggen.","Er is nog ruimte voor minstens één onnodig rondje.","De avond heeft zojuist bezwaar gemaakt tegen beëindiging.","De schaal met bitterballen is nog niet leeg. Juridisch bindend.","De borrel draait nog op volle capaciteit.","Er is nog geen discussie over waar de after is.","Het vertrekcomité heeft geen meerderheid.","Nee. Het universum heeft nog een rondje voor je ingepland.","De muziek staat aan en jouw oordeel staat uit. Prima balans.","Er is nog minstens één vriend die ‘kom op dan’ gaat zeggen.","Het officiële advies luidt: blijf zitten en bestel iets.","De avond is niet voorbij, hij is gewoon wat waziger geworden.","Nog eentje voor de mensen die er morgen niet bij hoeven te zijn.","Het wordt pas zorgelijk als de schoonmaker je naam weet.","Nee. De lampen zijn nog niet fel genoeg om eerlijk te zijn.","De borrel is officieel verlengd wegens buitengewone gezelligheid.","Het argument ‘ik moet morgen vroeg op’ is afgewezen.","Er staat nog geen taxi. Dus nergens heen.","Je zit nog. Uitstekend. Houden zo.","De kans op een goed idee is klein, maar nooit nul.","Je bent niet voor niets zo lang gebleven.","De borrel leeft. Jij trouwens ook nog. Mooi.","Geen paniek. De nacht is nog jong genoeg om fouten te maken.","Het einde heeft vertraging. Excuses voor het ongemak.","Je hoeft nergens heen. Dit is nu je tijdelijke woonadres.","Nog één drankje en je kunt deze vraag opnieuw stellen.","De bar is open, de zaak is duidelijk.","We hebben besloten de realiteit nog even uit te stellen.","Nee. De borrel heeft nog geen zin om naar bed te gaan.","Je humeur zegt blijven. Je verstand telt niet mee.","Dit is een uitstekend moment om niet verstandig te zijn."
       ],
-      closed:["Na zessen is de borrel echt wel klaar.","Ja. Punt. Ga richting bed.","Het is na zessen. Zelfs deze website geeft het op.","De borrel heeft officieel uitgeklokt.","Ja. Het personeel is mentaal al thuis.","Dit is geen after meer, dit is ochtendspits met restschade.","De laatste ronde is inmiddels archeologie.","Ja. Tijd om je jas terug te vinden.","De nacht heeft de sleutels ingeleverd.","Zelfs de tap wil nu rust.","Ja. Je toekomstige zelf heeft een klacht ingediend.","Het feest is voorbij. De verhalen beginnen nu pas."],
-      crazy:["Het is ochtend. Ga naar bed, mafkees.","Half acht geweest. Ben je helemaal gek geworden?","Dit is geen borreltijd. Dit is tandenpoetstijd.","Nee joh. Gordijnen dicht en slapen.","Je ontbijt hoort nu meer prioriteit te hebben dan een biertje.","De zon is op. Dat is je cue.","Je biologische klok heeft zojuist ontslag genomen.","Zelfs de website kijkt je nu bezorgd aan.","Ga slapen. De borrel kan vanmiddag wel weer ontkennen dat hij klaar is.","Dit is het tijdstip waarop je ‘goedemorgen’ moet zeggen. Absurd.","De vogels zijn begonnen. Jij moet stoppen.","Ben je gek? Er zijn mensen die nu naar werk gaan."]
+      closed:["Na zessen 's ochtends is de borrel echt wel klaar.","Ja. Punt. Ga richting bed.","Het is zes uur 's ochtends. Zelfs deze website geeft het op.","De borrel heeft officieel uitgeklokt.","Ja. Het personeel is mentaal al thuis.","Dit is geen after meer, dit is ochtendspits met restschade.","De laatste ronde is inmiddels archeologie.","Ja. Tijd om je jas terug te vinden.","De nacht heeft de sleutels ingeleverd.","Zelfs de tap wil nu rust.","Ja. Je toekomstige zelf heeft een klacht ingediend.","Het feest is voorbij. De verhalen beginnen nu pas."],
+      crazy:["Het is ochtend. Ga naar bed, mafkees.","De ochtend is allang begonnen. Ben je helemaal gek geworden?","Dit is geen borreltijd. Dit is tandenpoetstijd.","Nee joh. Gordijnen dicht en slapen.","Je ontbijt hoort nu meer prioriteit te hebben dan een biertje.","De zon is op. Dat is je cue.","Je biologische klok heeft zojuist ontslag genomen.","Zelfs de website kijkt je nu bezorgd aan.","Ga slapen. De borrel kan vanmiddag wel weer ontkennen dat hij klaar is.","Dit is het tijdstip waarop je ‘goedemorgen’ moet zeggen. Absurd.","De vogels zijn begonnen. Jij moet stoppen.","Ben je gek? Er zijn mensen die nu naar werk gaan."]
     };
     const STORAGE_PREFIX='borrel-deck-v3-';
+    const THEME={open:'#f7f4f1',closed:'#1d1416',crazy:'#fff0c4'};
+    const TITLE='Is de borrel al afgelopen?';
     function shuffle(values){const copy=[...values];for(let i=copy.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[copy[i],copy[j]]=[copy[j],copy[i]]}return copy}
     function getDeck(category){const key=STORAGE_PREFIX+category;try{const stored=JSON.parse(localStorage.getItem(key)||'null');if(Array.isArray(stored)&&stored.length&&stored.every(i=>Number.isInteger(i)&&i>=0&&i<messages[category].length))return stored}catch(_){}return shuffle(messages[category].map((_,i)=>i))}
     function nextMessage(category){const key=STORAGE_PREFIX+category;let deck=getDeck(category);const index=deck.shift();if(!deck.length){const lastIndex=index;deck=shuffle(messages[category].map((_,i)=>i));if(deck.length>1&&deck[0]===lastIndex)[deck[0],deck[1]]=[deck[1],deck[0]]}try{localStorage.setItem(key,JSON.stringify(deck))}catch(_){}return messages[category][index]}
-    function amsterdamParts(){const parts=new Intl.DateTimeFormat('nl-NL',{timeZone:'Europe/Amsterdam',hour:'2-digit',minute:'2-digit',hour12:false}).formatToParts(new Date());return{hour:Number(parts.find(p=>p.type==='hour')?.value||0),minute:parts.find(p=>p.type==='minute')?.value||'00'}}
-    function render(newQuip=false){const answer=document.getElementById('answer'),quip=document.getElementById('quip'),meta=document.getElementById('meta'),btn=document.getElementById('again');const{hour,minute}=amsterdamParts();const totalMinutes=hour*60+Number(minute);const borrelIsOver=totalMinutes>=360&&totalMinutes<450;const areYouCrazyHours=totalMinutes>=450&&totalMinutes<660;answer.classList.remove('pop','morning','closed');quip.classList.remove('pop');void answer.offsetWidth;let category='normal';if(areYouCrazyHours){category='crazy';answer.textContent='BEN JE GEK?';answer.classList.add('morning','pop');btn.textContent='Nog steeds wakker?'}else if(borrelIsOver){category='closed';answer.textContent='JA.';answer.classList.add('closed','pop');btn.textContent='Nog een keer controleren'}else{answer.textContent='NEE.';answer.classList.add('pop');btn.textContent='Nog een keer vragen'}if(newQuip||quip.dataset.category!==category){quip.textContent=nextMessage(category);quip.dataset.category=category}quip.classList.add('pop');meta.textContent=`Gecontroleerd om ${String(hour).padStart(2,'0')}:${minute} · Nederlandse tijd`}
-    document.getElementById('again').addEventListener('click',()=>render(true));
-    const egg=document.getElementById('egg');let eggTimer;egg.addEventListener('click',()=>{clearTimeout(eggTimer);egg.textContent='🥚 trek een bak';egg.classList.add('found');egg.setAttribute('aria-label','Easter egg gevonden: trek een bak');eggTimer=setTimeout(()=>{egg.textContent='een dienst van twijfelachtige noodzaak';egg.classList.remove('found');egg.setAttribute('aria-label','Verborgen boodschap')},5000)});
+    function amsterdamParts(){const parts=new Intl.DateTimeFormat('nl-NL',{timeZone:'Europe/Amsterdam',hour:'2-digit',minute:'2-digit',hour12:false}).formatToParts(new Date());return{hour:Number(parts.find(p=>p.type==='hour')?.value||0)%24,minute:parts.find(p=>p.type==='minute')?.value||'00'}}
+    const $=id=>document.getElementById(id);
+    const answerEl=$('answer'),quipEl=$('quip'),metaEl=$('meta'),againBtn=$('again');
+    const STATES={
+      open:{category:'normal',answer:'NEE.',button:'Nog een keer vragen'},
+      closed:{category:'closed',answer:'JA.',button:'Nog een keer controleren'},
+      crazy:{category:'crazy',answer:'BEN JE GEK?',button:'Nog steeds wakker?'}
+    };
+    function stateFor(total){return total>=450&&total<660?'crazy':total>=360&&total<450?'closed':'open'}
+    function replay(el){el.classList.remove('pop');void el.offsetWidth;el.classList.add('pop')}
+    let currentState=null;
+    function render(newQuip=false){
+      const{hour,minute}=amsterdamParts();
+      const state=stateFor(hour*60+Number(minute));
+      const changed=state!==currentState;
+      const s=STATES[state];
+      if(changed){
+        currentState=state;
+        document.body.dataset.state=state;
+        answerEl.textContent=s.answer;
+        answerEl.classList.toggle('long',state==='crazy');
+        againBtn.textContent=s.button;
+        document.title=s.answer+' – '+TITLE;
+        const tc=document.querySelector('meta[name="theme-color"]');if(tc)tc.content=THEME[state];
+        replay(answerEl);
+      }
+      if(changed||newQuip){quipEl.textContent=nextMessage(s.category);replay(quipEl)}
+      metaEl.textContent='Gecontroleerd om '+String(hour).padStart(2,'0')+':'+minute+' · Nederlandse tijd';
+    }
+    againBtn.addEventListener('click',()=>render(true));
+    const shareBtn=$('share'),shareStatus=$('shareStatus');
+    shareBtn.addEventListener('click',async()=>{
+      const text=answerEl.textContent+' '+quipEl.textContent;
+      const url=location.href;
+      try{
+        if(navigator.share){await navigator.share({title:TITLE,text,url});return}
+        await navigator.clipboard.writeText(text+' '+url);
+        shareBtn.textContent='Gekopieerd';shareStatus.textContent='Gekopieerd naar klembord';
+        setTimeout(()=>{shareBtn.textContent='Deel het nieuws';shareStatus.textContent=''},2000);
+      }catch(_){}
+    });
+    const egg=$('egg');let eggTimer;
+    egg.addEventListener('click',()=>{clearTimeout(eggTimer);egg.textContent='🥚 trek een bak';egg.classList.add('found');eggTimer=setTimeout(()=>{egg.textContent='een dienst van twijfelachtige noodzaak';egg.classList.remove('found')},5000)});
     render(true);setInterval(()=>render(false),30000);
   </script>
 </body>
