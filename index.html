@@ -173,7 +173,7 @@
       }catch(_){}
     });
     const egg=$('egg');let eggTimer;
-    egg.addEventListener('click',()=>{clearTimeout(eggTimer);egg.textContent='🥚 trek een bak';egg.classList.add('found');eggTimer=setTimeout(()=>{egg.textContent='een dienst van twijfelachtige noodzaak';egg.classList.remove('found')},5000)});
+    egg.addEventListener('click',()=>{clearTimeout(eggTimer);egg.textContent='🍺 trek een bak';egg.classList.add('found');eggTimer=setTimeout(()=>{egg.textContent='een dienst van twijfelachtige noodzaak';egg.classList.remove('found')},5000)});
     checkWithLoader();setInterval(()=>{if(!loading)render(false)},30000);
   </script>
 </body>
