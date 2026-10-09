@@ -58,7 +58,7 @@
     @keyframes wobble{0%,100%{transform:rotate(-10deg) translateY(0)}50%{transform:rotate(10deg) translateY(-8px)}}
     .loading-text{margin:0;min-height:1.5em;font-size:clamp(1.1rem,2.6vw,1.4rem);font-weight:600;letter-spacing:-.01em;color:var(--text)}
     .bar{width:min(320px,80%);height:8px;border-radius:999px;background:var(--soft);border:1px solid var(--line);overflow:hidden}
-    .bar>i{display:block;height:100%;width:0;background:var(--accent);border-radius:999px;transition:width .45s ease-out}
+    .bar>i{display:block;height:100%;width:0;background:var(--accent);border-radius:999px;transition:width .18s linear}
     .btn:disabled{opacity:.5;cursor:progress;transform:none}
     .pop{animation:pop .4s cubic-bezier(.16,1,.3,1) both}
     @keyframes pop{from{transform:scale(.94);opacity:.4}to{transform:scale(1);opacity:1}}
@@ -139,24 +139,33 @@
         const steps=shuffle(loadingSteps).slice(0,Math.floor(rand(2,5)));
         const total=rand(1800,3600),per=total/steps.length;
         let progress=0;
+        const start=performance.now();
         resultEl.hidden=true;metaEl.hidden=true;loaderEl.hidden=false;
         againBtn.disabled=true;shareBtnEl.disabled=true;
-        barFill.style.transition='none';barFill.style.width='0';void barFill.offsetWidth;barFill.style.transition='';
+        barFill.style.width='0';
         steps.forEach((text,i)=>{
-          setTimeout(()=>{
-            loadingTextEl.textContent=text+'…';
-            progress=i===steps.length-1?92:Math.min(90,progress+rand(15,40));
-            barFill.style.width=progress+'%';
-          },i*per);
+          setTimeout(()=>{loadingTextEl.textContent=text+'…'},i*per);
         });
-        setTimeout(()=>{
+        const setBar=v=>{progress=Math.max(progress,Math.min(v,99.4));barFill.style.width=progress.toFixed(1)+'%'};
+        const finish=()=>{
           barFill.style.width='100%';
           setTimeout(()=>{
             loaderEl.hidden=true;resultEl.hidden=false;metaEl.hidden=false;
             againBtn.disabled=false;shareBtnEl.disabled=false;loading=false;
             resolve();
-          },300);
-        },total);
+          },rand(150,400));
+        };
+        const tick=()=>{
+          const elapsed=performance.now()-start;
+          if(elapsed>=total){finish();return}
+          const base=elapsed/total*100,roll=Math.random();
+          if(roll<.22){}                                     // blijft even hangen
+          else if(roll<.34)setBar(base+rand(6,22));          // plotselinge sprong
+          else if(roll<.5)setBar(progress+rand(.2,1.5));     // kruipt
+          else setBar(base+rand(-10,10));                    // schommelt rond het gemiddelde
+          setTimeout(tick,Math.random()<.2?rand(350,700):rand(60,260));
+        };
+        tick();
       });
     }
     function checkWithLoader(){if(loading)return;showLoader().then(()=>render(true))}
