@@ -8,7 +8,6 @@
   <meta name="description" content="Het antwoord is verrassend consequent." />
   <style>
     :root {
-      /* Tjas-inspired: rood, wit en een warme neutrale basis */
       --bg: #f7f4f1;
       --panel: rgba(255,255,255,.82);
       --panel-border: rgba(154, 20, 39, .14);
@@ -21,7 +20,6 @@
     }
 
     * { box-sizing: border-box; }
-
     html, body { min-height: 100%; }
 
     body {
@@ -60,9 +58,7 @@
     .orb.one { background: var(--accent); top: -14vw; left: -10vw; }
     .orb.two { background: var(--accent-2); right: -14vw; bottom: -18vw; animation-delay: -5s; }
 
-    @keyframes float {
-      to { transform: translate3d(4vw, 3vw, 0) scale(1.12); }
-    }
+    @keyframes float { to { transform: translate3d(4vw, 3vw, 0) scale(1.12); } }
 
     main {
       width: min(920px, calc(100% - 32px));
@@ -123,9 +119,7 @@
       color: var(--accent-2);
     }
 
-    .answer.closed {
-      color: var(--accent-2);
-    }
+    .answer.closed { color: var(--accent-2); }
 
     .card {
       margin: 34px auto 0;
@@ -194,6 +188,7 @@
   </style>
 </head>
 <body>
+  <!-- trek een bak -->
   <div class="noise" aria-hidden="true"></div>
   <div class="orb one" aria-hidden="true"></div>
   <div class="orb two" aria-hidden="true"></div>
@@ -213,30 +208,199 @@
   </main>
 
   <script>
-    const quips = [
-      "Drink nog maar een biertje.",
-      "Je glas is nog niet leeg. Zaak gesloten.",
-      "Nog eentje kan statistisch gezien prima.",
-      "De tap is nog warm. Dat zegt genoeg.",
-      "Vraag het over één drankje nog eens.",
-      "Afgelopen? We zijn net lekker bezig.",
-      "Het laatste rondje bestaat vooral in theorie.",
-      "Nee. En nu niet zo moeilijk doen.",
-      "Er is nog muziek. Dus nee.",
-      "Eerst nog eentje voor de sfeer.",
-      "Technisch gezien is naar huis gaan optioneel.",
-      "Je hebt deze website geopend. Dat is al bewijs genoeg.",
-      "De borrel stopt pas als niemand meer weet wie 'm begon.",
-      "Nee. Water mag trouwens ook. Hoeft niet, maar mag.",
-      "Blijf nog even. Je jas hangt toch al ergens kwijt.",
-      "Dit voelt niet als het einde. Hooguit als een tussenstand.",
-      "Nog vijf minuten. En daarna nog vijf minuten.",
-      "De avond heeft nog minstens één slecht idee over.",
-      "Nee. Morgen ben je jezelf dankbaar. Waarschijnlijk niet, maar toch.",
-      "Als je het moet vragen, is het antwoord sowieso nee."
-    ];
+    const messages = {
+      normal: [
+        "Drink nog maar een biertje.",
+        "Je glas is nog niet leeg. Zaak gesloten.",
+        "Nog eentje kan statistisch gezien prima.",
+        "De tap is nog warm. Dat zegt genoeg.",
+        "Vraag het over één drankje nog eens.",
+        "Afgelopen? We zijn net lekker bezig.",
+        "Het laatste rondje bestaat vooral in theorie.",
+        "Nee. En nu niet zo moeilijk doen.",
+        "Er is nog muziek. Dus nee.",
+        "Eerst nog eentje voor de sfeer.",
+        "Technisch gezien is naar huis gaan optioneel.",
+        "Je hebt deze website geopend. Dat is al bewijs genoeg.",
+        "De borrel stopt pas als niemand meer weet wie 'm begon.",
+        "Nee. Water mag trouwens ook. Hoeft niet, maar mag.",
+        "Blijf nog even. Je jas hangt toch al ergens kwijt.",
+        "Dit voelt niet als het einde. Hooguit als een tussenstand.",
+        "Nog vijf minuten. En daarna nog vijf minuten.",
+        "De avond heeft nog minstens één slecht idee over.",
+        "Als je het moet vragen, is het antwoord sowieso nee.",
+        "Je bent er nu toch. Maak het af.",
+        "Er staat nergens dat je al naar huis moet.",
+        "De stoelen staan nog niet op tafel. Dus nee.",
+        "Zolang iemand nog ‘proost’ zegt, telt het als borrel.",
+        "Ik heb het nagekeken: nog lang niet.",
+        "Je jas aandoen is op dit moment overdreven ambitieus.",
+        "Er kan nog makkelijk één ronde bij.",
+        "De avond is pas net op bedrijfstemperatuur.",
+        "Niemand heeft ‘laatste drankje’ officieel bekrachtigd.",
+        "De sfeercommissie heeft verlenging aangevraagd.",
+        "Nee. Dit is hooguit de rust.",
+        "Een borrel stopt niet. Een borrel vervaagt langzaam.",
+        "Ik zie geen reden voor paniek of vertrek.",
+        "De koelkast zegt van niet.",
+        "Er ligt nog ijs. Onweerlegbaar bewijs.",
+        "Het is pas afgelopen als de playlist zichzelf opgeeft.",
+        "Nog eentje voor onderweg. Naar nergens.",
+        "Vertrekken is nu vooral een administratieve keuze.",
+        "De borrel is nog springlevend en licht aangeschoten.",
+        "Je hebt nog niet eens dramatisch naar de klok gekeken.",
+        "Nee. We hebben het hier net gezellig gekregen.",
+        "Er is nog drank en slechte besluitvorming. Perfect.",
+        "Volgens mijn berekening ontbreken er nog minstens twee rondes.",
+        "Het licht staat nog niet irritant fel. We kunnen door.",
+        "Als de muziek nog harder kan, is het niet afgelopen.",
+        "De bar heeft nog geen afscheidsbrief gestuurd.",
+        "Nog eentje. Voor de wetenschap.",
+        "De avond is nog niet klaar met jou.",
+        "Een verstandige keuze zou nu heel ongepast zijn.",
+        "Er is nog tijd voor een uitstekende slechte beslissing.",
+        "De groepsapp is nog niet stilgevallen. Borrel loopt.",
+        "Je glas kijkt alsof het nog iets van je verwacht.",
+        "Het antwoord blijft nee, hoe vaak je ook refresht.",
+        "De nooduitgang is niet hetzelfde als naar huis gaan.",
+        "Er is nog geen ‘was gezellig!’ in de groepsapp. Dus nee.",
+        "Iemand moet het laatste rondje bestellen. Waarom niet jij?",
+        "De klok is slechts een suggestie.",
+        "Morgen is een probleem voor toekomstige jij.",
+        "Nog één nummer dan. En daarna zien we wel weer.",
+        "De borrelstatus is officieel: zorgwekkend gezellig.",
+        "Je kunt nu weggaan, maar dan win je helemaal niks.",
+        "Nee. De avond heeft nog plotontwikkeling nodig.",
+        "Er ontbreekt nog minimaal één verhaal dat morgen vaag voelt.",
+        "Je telefoon heeft nog batterij. Geen excuus.",
+        "Er is nog iemand wakker. Daarmee is de zaak afgedaan.",
+        "De borrel heeft zichzelf zojuist met een uur verlengd.",
+        "Je bent nog niet je fiets kwijt. Veel te vroeg.",
+        "Nog eentje om zeker te weten dat het géén eentje meer wordt.",
+        "De avond zit nog midden in zijn hoofdprogramma.",
+        "Er is nog geen friet gehaald. Dan zijn we duidelijk nog niet klaar.",
+        "Het einde is momenteel niet beschikbaar. Probeer later opnieuw.",
+        "Deze website heeft nooit toestemming gegeven om te vertrekken.",
+        "Je vrienden zijn er nog. Waarschijnlijk. Kijk even om je heen.",
+        "De planning zegt niets. De sfeer zegt doorgaan.",
+        "Nog eentje voor degene die ‘ik ga zo’ zei.",
+        "Je zei een uur geleden ook al dat je bijna ging.",
+        "Nee. Dat was geen laatste ronde, dat was een tussenronde.",
+        "Er is nog genoeg tijd om een nieuwe favoriete plaat te horen.",
+        "Je hoeft niet naar huis. Je huis loopt niet weg.",
+        "De glazen zijn nog rond. Dat is een teken.",
+        "Dit is geen einde, dit is een strategische drinkpauze.",
+        "De kans op karaoke is nog niet nul. Blijven dus.",
+        "Er is nog iemand met muntjes. We kunnen door.",
+        "Je hebt nog geen sentimenteel gesprek gehad. Veel te vroeg.",
+        "Nee. Eerst nog even collectief onverstandig doen.",
+        "Het zou zonde zijn om nu ineens verantwoordelijk te worden.",
+        "De borrel heeft quorum. Besluit: doorgaan.",
+        "Niemand heeft de stekker eruit getrokken. Letterlijk noch figuurlijk.",
+        "Als je nog kunt vragen of het afgelopen is, is het niet afgelopen.",
+        "Nog een drankje en dan evalueren we de situatie volledig opnieuw.",
+        "Je hoeft alleen nog maar ‘deze is echt de laatste’ te zeggen.",
+        "Er is nog ruimte voor minstens één onnodig rondje.",
+        "De avond heeft zojuist bezwaar gemaakt tegen beëindiging.",
+        "De schaal met bitterballen is nog niet leeg. Juridisch bindend.",
+        "De borrel draait nog op volle capaciteit.",
+        "Er is nog geen discussie over waar de after is.",
+        "Het vertrekcomité heeft geen meerderheid.",
+        "Nee. Het universum heeft nog een rondje voor je ingepland.",
+        "De muziek staat aan en jouw oordeel staat uit. Prima balans.",
+        "Er is nog minstens één vriend die ‘kom op dan’ gaat zeggen.",
+        "Het officiële advies luidt: blijf zitten en bestel iets.",
+        "De avond is niet voorbij, hij is gewoon wat waziger geworden.",
+        "Nog eentje voor de mensen die er morgen niet bij hoeven te zijn.",
+        "Het wordt pas zorgelijk als de schoonmaker je naam weet.",
+        "Nee. De lampen zijn nog niet fel genoeg om eerlijk te zijn.",
+        "De borrel is officieel verlengd wegens buitengewone gezelligheid.",
+        "Het argument ‘ik moet morgen vroeg op’ is afgewezen.",
+        "Deze avond heeft nog onbetaalde rekeningen bij je.",
+        "Er staat nog geen taxi. Dus nergens heen.",
+        "Je zit nog. Uitstekend. Houden zo.",
+        "De kans op een goed idee is klein, maar nooit nul.",
+        "Nee, want iemand moet straks nog zeggen dat het echt de laatste is.",
+        "Je bent niet voor niets zo lang gebleven.",
+        "De borrel leeft. Jij trouwens ook nog. Mooi.",
+        "Geen paniek. De nacht is nog jong genoeg om fouten te maken.",
+        "Het einde heeft vertraging. Excuses voor het ongemak.",
+        "Je hoeft nergens heen. Dit is nu je tijdelijke woonadres.",
+        "Nog één drankje en je kunt deze vraag opnieuw stellen.",
+        "De bar is open, de zaak is duidelijk.",
+        "We hebben besloten de realiteit nog even uit te stellen.",
+        "Nee. De borrel heeft nog geen zin om naar bed te gaan.",
+        "Je humeur zegt blijven. Je verstand telt niet mee.",
+        "Dit is een uitstekend moment om niet verstandig te zijn."
+      ],
+      closed: [
+        "Na zessen is de borrel echt wel klaar.",
+        "Ja. Punt. Ga richting bed.",
+        "Het is na zessen. Zelfs deze website geeft het op.",
+        "De borrel heeft officieel uitgeklokt.",
+        "Ja. Het personeel is mentaal al thuis.",
+        "Dit is geen after meer, dit is ochtendspits met restschade.",
+        "De laatste ronde is inmiddels archeologie.",
+        "Ja. Tijd om je jas terug te vinden.",
+        "De nacht heeft de sleutels ingeleverd.",
+        "Zelfs de tap wil nu rust.",
+        "Ja. Je toekomstige zelf heeft een klacht ingediend.",
+        "Het feest is voorbij. De verhalen beginnen nu pas."
+      ],
+      crazy: [
+        "Het is ochtend. Ga naar bed, mafkees.",
+        "Half acht geweest. Ben je helemaal gek geworden?",
+        "Dit is geen borreltijd. Dit is tandenpoetstijd.",
+        "Nee joh. Gordijnen dicht en slapen.",
+        "Je ontbijt hoort nu meer prioriteit te hebben dan een biertje.",
+        "De zon is op. Dat is je cue.",
+        "Je biologische klok heeft zojuist ontslag genomen.",
+        "Zelfs de website kijkt je nu bezorgd aan.",
+        "Ga slapen. De borrel kan vanmiddag wel weer ontkennen dat hij klaar is.",
+        "Dit is het tijdstip waarop je ‘goedemorgen’ moet zeggen. Absurd.",
+        "De vogels zijn begonnen. Jij moet stoppen.",
+        "Ben je gek? Er zijn mensen die nu naar werk gaan."
+      ]
+    };
 
-    let previous = -1;
+    const STORAGE_PREFIX = 'borrel-deck-v2-';
+
+    function shuffle(values) {
+      const copy = [...values];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    function getDeck(category) {
+      const key = STORAGE_PREFIX + category;
+      try {
+        const stored = JSON.parse(localStorage.getItem(key) || 'null');
+        if (Array.isArray(stored) && stored.length && stored.every(i => Number.isInteger(i) && i >= 0 && i < messages[category].length)) {
+          return stored;
+        }
+      } catch (_) {}
+      return shuffle(messages[category].map((_, i) => i));
+    }
+
+    function nextMessage(category) {
+      const key = STORAGE_PREFIX + category;
+      let deck = getDeck(category);
+      const index = deck.shift();
+
+      if (!deck.length) {
+        const lastIndex = index;
+        deck = shuffle(messages[category].map((_, i) => i));
+        if (deck.length > 1 && deck[0] === lastIndex) {
+          [deck[0], deck[1]] = [deck[1], deck[0]];
+        }
+      }
+
+      try { localStorage.setItem(key, JSON.stringify(deck)); } catch (_) {}
+      return messages[category][index];
+    }
 
     function amsterdamParts() {
       const parts = new Intl.DateTimeFormat('nl-NL', {
@@ -249,14 +413,6 @@
       const hour = Number(parts.find(p => p.type === 'hour')?.value || 0);
       const minute = parts.find(p => p.type === 'minute')?.value || '00';
       return { hour, minute };
-    }
-
-    function randomQuip() {
-      if (quips.length === 1) return quips[0];
-      let i;
-      do i = Math.floor(Math.random() * quips.length); while (i === previous);
-      previous = i;
-      return quips[i];
     }
 
     function render(newQuip = false) {
@@ -273,29 +429,30 @@
       quip.classList.remove('pop');
       void answer.offsetWidth;
 
+      let category = 'normal';
+
       if (areYouCrazyHours) {
+        category = 'crazy';
         answer.textContent = 'BEN JE GEK?';
         answer.classList.add('morning', 'pop');
-        quip.textContent = 'Het is ochtend. Ga naar bed, mafkees.';
-        quip.dataset.set = '1';
-        btn.textContent = 'Toch nog eentje?';
+        btn.textContent = 'Nog steeds wakker?';
       } else if (borrelIsOver) {
+        category = 'closed';
         answer.textContent = 'JA.';
         answer.classList.add('closed', 'pop');
-        quip.textContent = 'Na zessen is de borrel echt wel klaar.';
-        quip.dataset.set = '1';
-        btn.textContent = 'Accepteer het maar';
+        btn.textContent = 'Nog een keer controleren';
       } else {
         answer.textContent = 'NEE.';
         answer.classList.add('pop');
-        if (newQuip || !quip.dataset.set) {
-          quip.textContent = randomQuip();
-          quip.dataset.set = '1';
-        }
-        quip.classList.add('pop');
         btn.textContent = 'Nog een keer vragen';
       }
 
+      if (newQuip || quip.dataset.category !== category) {
+        quip.textContent = nextMessage(category);
+        quip.dataset.category = category;
+      }
+
+      quip.classList.add('pop');
       meta.textContent = `Gecontroleerd om ${String(hour).padStart(2,'0')}:${minute} · Nederlandse tijd`;
     }
 
