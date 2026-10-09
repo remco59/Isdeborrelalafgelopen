@@ -52,6 +52,14 @@
     #egg.found{color:var(--accent);font-weight:700;border-bottom-color:transparent}
     #egg::after{content:"psst…";position:absolute;left:50%;bottom:calc(100% + 4px);transform:translateX(-50%) translateY(3px);padding:5px 8px;border-radius:8px;background:var(--text);color:var(--bg);font-size:13px;opacity:0;pointer-events:none;white-space:nowrap;transition:opacity .18s ease,transform .18s ease}
     @media (hover:hover){#egg:hover::after,#egg:focus-visible::after{opacity:1;transform:translateX(-50%) translateY(0)}}
+    .loader{display:grid;justify-items:center;gap:18px;margin:20px 0 10px;min-height:19rem;align-content:center}
+    .loader[hidden]{display:none}
+    .glass{font-size:clamp(3.5rem,12vw,5.5rem);line-height:1;animation:wobble 1s ease-in-out infinite}
+    @keyframes wobble{0%,100%{transform:rotate(-10deg) translateY(0)}50%{transform:rotate(10deg) translateY(-8px)}}
+    .loading-text{margin:0;min-height:1.5em;font-size:clamp(1.1rem,2.6vw,1.4rem);font-weight:600;letter-spacing:-.01em;color:var(--text)}
+    .bar{width:min(320px,80%);height:8px;border-radius:999px;background:var(--soft);border:1px solid var(--line);overflow:hidden}
+    .bar>i{display:block;height:100%;width:0;background:var(--accent);border-radius:999px;transition:width .45s ease-out}
+    .btn:disabled{opacity:.5;cursor:progress;transform:none}
     .pop{animation:pop .4s cubic-bezier(.16,1,.3,1) both}
     @keyframes pop{from{transform:scale(.94);opacity:.4}to{transform:scale(1);opacity:1}}
     .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
@@ -61,7 +69,12 @@
 <body data-state="open">
   <main>
     <h1>Is de borrel al afgelopen?</h1>
-    <div aria-live="polite" aria-atomic="false">
+    <div id="loader" class="loader" role="status" hidden>
+      <div class="glass" aria-hidden="true">🍺</div>
+      <p id="loadingText" class="loading-text">Even kijken…</p>
+      <div class="bar" aria-hidden="true"><i id="barFill"></i></div>
+    </div>
+    <div id="result" aria-live="polite" aria-atomic="false">
       <div id="answer" class="answer">NEE.</div>
       <p id="quip" class="quip">Drink nog maar een biertje.</p>
     </div>
@@ -116,7 +129,38 @@
       if(changed||newQuip){quipEl.textContent=nextMessage(s.category);replay(quipEl)}
       metaEl.textContent='Gecontroleerd om '+String(hour).padStart(2,'0')+':'+minute+' · Nederlandse tijd';
     }
-    againBtn.addEventListener('click',()=>render(true));
+    const loadingSteps=["Biertjes tellen","Tactisch barfje leggen","Stoelen tellen die nog bezet zijn","Playlist op slechte ideeën controleren","Bitterballen inventariseren","Sfeermeter kalibreren","Rondje uitrekenen","Barman om een eerlijk oordeel vragen","Jassen tellen in de garderobe","Groepsapp op levenstekenen scannen","Glazen tegen het licht houden","Laatste-rondje-geruchten natrekken","Schoenen op plakkerigheid testen","Gezelligheidsgraad meten","Taxi-app negeren","Vertrekcomité omkopen","Statiegeld opnieuw berekenen","Het volume iets te hard zetten","Dansvloer op bezetting checken","Nootjes verdelen","Kroegkat om advies vragen","Smoesjes om te blijven verzamelen"];
+    const loaderEl=$('loader'),resultEl=$('result'),loadingTextEl=$('loadingText'),barFill=$('barFill'),shareBtnEl=$('share');
+    let loading=false;
+    const rand=(a,b)=>a+Math.random()*(b-a);
+    function showLoader(){
+      return new Promise(resolve=>{
+        loading=true;
+        const steps=shuffle(loadingSteps).slice(0,Math.floor(rand(2,5)));
+        const total=rand(1800,3600),per=total/steps.length;
+        let progress=0;
+        resultEl.hidden=true;metaEl.hidden=true;loaderEl.hidden=false;
+        againBtn.disabled=true;shareBtnEl.disabled=true;
+        barFill.style.transition='none';barFill.style.width='0';void barFill.offsetWidth;barFill.style.transition='';
+        steps.forEach((text,i)=>{
+          setTimeout(()=>{
+            loadingTextEl.textContent=text+'…';
+            progress=i===steps.length-1?92:Math.min(90,progress+rand(15,40));
+            barFill.style.width=progress+'%';
+          },i*per);
+        });
+        setTimeout(()=>{
+          barFill.style.width='100%';
+          setTimeout(()=>{
+            loaderEl.hidden=true;resultEl.hidden=false;metaEl.hidden=false;
+            againBtn.disabled=false;shareBtnEl.disabled=false;loading=false;
+            resolve();
+          },300);
+        },total);
+      });
+    }
+    function checkWithLoader(){if(loading)return;showLoader().then(()=>render(true))}
+    againBtn.addEventListener('click',checkWithLoader);
     const shareBtn=$('share'),shareStatus=$('shareStatus');
     shareBtn.addEventListener('click',async()=>{
       const text=answerEl.textContent+' '+quipEl.textContent;
@@ -130,7 +174,7 @@
     });
     const egg=$('egg');let eggTimer;
     egg.addEventListener('click',()=>{clearTimeout(eggTimer);egg.textContent='🥚 trek een bak';egg.classList.add('found');eggTimer=setTimeout(()=>{egg.textContent='een dienst van twijfelachtige noodzaak';egg.classList.remove('found')},5000)});
-    render(true);setInterval(()=>render(false),30000);
+    checkWithLoader();setInterval(()=>{if(!loading)render(false)},30000);
   </script>
 </body>
 </html>
